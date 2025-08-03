@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SchoolipProject.Data\SchoolipProject.Data.csproj" />
+    <ProjectReference Include="..\SchoolipProject.Infrastructure\SchoolipProject.Infrastructure.csproj" />
+    <ProjectReference Include="..\SchoolipProject.Service\SchoolipProject.Service.csproj" />
+  </ItemGroup>
+
+</Project>
