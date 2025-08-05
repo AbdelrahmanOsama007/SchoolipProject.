@@ -9,12 +9,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.7">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.7" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.7" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SchoolipProject.Core\SchoolipProject.Core.csproj" />
+    <ProjectReference Include="..\SchoolipProject.Data\SchoolipProject.Data.csproj" />
+    <ProjectReference Include="..\SchoolipProject.Infrastructure\SchoolipProject.Infrastructure.csproj" />
+    <ProjectReference Include="..\SchoolipProject.Service\SchoolipProject.Service.csproj" />
   </ItemGroup>
 
 </Project>

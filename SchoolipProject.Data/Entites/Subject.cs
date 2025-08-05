@@ -14,7 +14,6 @@ namespace SchoolipProject.Data.Entites
 
         public string Title { get; set; }
 
-        // Navigation
         public virtual ICollection<DepartmentSubject> DepartmentSubjects { get; set; }
         public virtual ICollection<StudentSubject> StudentSubjects { get; set; }
 

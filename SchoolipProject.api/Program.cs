@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 
 namespace SchoolipProject.api
 {
@@ -13,6 +14,9 @@ namespace SchoolipProject.api
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            //connection to database
+            builder.Services.AddDbContext<SchoolipProject.Infrastructure.Data.DbContext1>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             var app = builder.Build();
 
