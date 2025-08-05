@@ -17,6 +17,11 @@ namespace SchoolipProject.api
             //connection to database
             builder.Services.AddDbContext<SchoolipProject.Infrastructure.Data.DbContext1>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddScoped<SchoolipProject.Infrastructure.Irepository.IDepatrmentRepo, SchoolipProject.Infrastructure.Repository.DepatrmentRepo>();
+            builder.Services.AddScoped<SchoolipProject.Infrastructure.Irepository.ISubjectRepo, SchoolipProject.Infrastructure.Repository.SubjectRepo>();
+            builder.Services.AddScoped<SchoolipProject.Infrastructure.Irepository.IDepartmentSubjectRepo, SchoolipProject.Infrastructure.Repository.DepartmentSubjectRepo>();
+            builder.Services.AddScoped<SchoolipProject.Infrastructure.Irepository.IStudentSubjectRepo, SchoolipProject.Infrastructure.Repository.StudentSubjectRepo>();
+            builder.Services.AddScoped<SchoolipProject.Infrastructure.Irepository.IStudentRepo, SchoolipProject.Infrastructure.Repository.StudentRepo>();
 
             var app = builder.Build();
 
