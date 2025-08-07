@@ -1,0 +1,45 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch SchoolipProject API",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/SchoolipProject.api/bin/Debug/net8.0/SchoolipProject.api.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/SchoolipProject.api",
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
+                "uriFormat": "%s/swagger"
+            }
+        },
+        {
+            "name": "Attach to SchoolipProject API",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickProcess}"
+        },
+        {
+            "name": "Launch SchoolipProject API (Docker)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "docker-run",
+            "program": "${workspaceFolder}/SchoolipProject.api/bin/Debug/net8.0/SchoolipProject.api.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/SchoolipProject.api",
+            "console": "internalConsole",
+            "stopAtEntry": false,
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            }
+        }
+    ]
+}
+

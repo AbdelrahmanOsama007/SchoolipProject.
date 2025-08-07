@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 using MediatR;
 using SchoolipProject.Data.Entites;
 using SchoolipProject.Core.Feauters.Student.Qeuries.Models;
-using SchoolipProject.Data.Entites;
 using SchoolipProject.Service.Service;
+using SchoolipProject.Service.Iservice;
 
 namespace SchoolipProject.Core.Feauters.Student.Qeuries.Handelrs
 {
     public class GetStudentListHandler : IRequestHandler<GetStudentListQuery, List<SchoolipProject.Data.Entites.Student>>
     {
-        readonly StudentService _StuddentService;
-        public GetStudentListHandler(  StudentService studentService  ) {
+        readonly IStudentService _StuddentService;
+        public GetStudentListHandler(IStudentService studentService  ) {
             _StuddentService = studentService;
         }
 
@@ -27,7 +27,7 @@ namespace SchoolipProject.Core.Feauters.Student.Qeuries.Handelrs
                 return Task.FromResult(students.ToList());
             }
             catch (Exception ex)
-            {
+            {   
                 // Log the exception (not implemented here)
                 throw new Exception("An error occurred while retrieving the student list.", ex);
             }

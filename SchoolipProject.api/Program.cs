@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using SchoolipProject.Core;
 using SchoolipProject.Service.Iservice;
 using SchoolipProject.Service.Service;
 
@@ -19,6 +20,7 @@ namespace SchoolipProject.api
             //connection to database
             builder.Services.AddDbContext<SchoolipProject.Infrastructure.Data.DbContext1>(options =>
                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
             #region dependency injection
             builder.Services.AddScoped<SchoolipProject.Infrastructure.Irepository.IDepatrmentRepo, SchoolipProject.Infrastructure.Repository.DepatrmentRepo>();
             builder.Services.AddScoped<SchoolipProject.Infrastructure.Irepository.ISubjectRepo, SchoolipProject.Infrastructure.Repository.SubjectRepo>();
@@ -30,6 +32,7 @@ namespace SchoolipProject.api
             builder.Services.AddTransient<ISubjectService, SubjectService>();
             builder.Services.AddTransient<IDepartmentSubjectService, DepartmentSubjectService>();
             builder.Services.AddTransient<IStudentSubjectService, StudentSubjectService>();
+            builder.Services.RegisterCoreDependencies();
             #endregion 
 
             var app = builder.Build();
@@ -44,7 +47,6 @@ namespace SchoolipProject.api
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 
