@@ -11,8 +11,8 @@ using SchoolipProject.Infrastructure.Data;
 namespace SchoolipProject.Infrastructure.Migrations
 {
     [DbContext(typeof(DbContext1))]
-    [Migration("20250804144857_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250808162305_friston")]
+    partial class friston
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,7 +61,7 @@ namespace SchoolipProject.Infrastructure.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("Depatrations");
+                    b.ToTable("Depatrment");
                 });
 
             modelBuilder.Entity("SchoolipProject.Data.Entites.Student", b =>

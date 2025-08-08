@@ -33,6 +33,7 @@ namespace SchoolipProject.api
             builder.Services.AddTransient<IDepartmentSubjectService, DepartmentSubjectService>();
             builder.Services.AddTransient<IStudentSubjectService, StudentSubjectService>();
             builder.Services.RegisterCoreDependencies();
+            
             #endregion 
 
             var app = builder.Build();

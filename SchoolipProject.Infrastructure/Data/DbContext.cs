@@ -17,7 +17,7 @@ namespace SchoolipProject.Infrastructure.Data
         }
 
         public DbSet<Student> Students { get; set; }
-        public DbSet<Depatrment> Depatrations { get; set; }
+        public DbSet<Depatrment> Depatrment { get; set; }
         public DbSet<Subject>subjects { get; set; } 
          
         public DbSet<StudentSubject> StudentSubjects { get; set; }  

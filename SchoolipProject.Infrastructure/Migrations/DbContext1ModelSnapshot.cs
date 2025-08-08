@@ -58,7 +58,7 @@ namespace SchoolipProject.Infrastructure.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("Depatrations");
+                    b.ToTable("Depatrment");
                 });
 
             modelBuilder.Entity("SchoolipProject.Data.Entites.Student", b =>

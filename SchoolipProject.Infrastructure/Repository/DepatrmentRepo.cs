@@ -17,23 +17,23 @@ namespace SchoolipProject.Infrastructure.Repository
 
         public async Task<Depatrment> GetByIdAsync(int id)
         {
-            return await _context.Depatrations.FindAsync(id);
+            return await _context.Depatrment.FindAsync(id);
         }
 
         public async Task<IEnumerable<Depatrment>> GetAllAsync()
         {
-            return await _context.Depatrations.ToListAsync();
+            return await _context.Depatrment.ToListAsync();
         }
 
         public async Task AddAsync(Depatrment depatrment)
         {
-            await _context.Depatrations.AddAsync(depatrment);
+            await _context.Depatrment.AddAsync(depatrment);
             await _context.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(Depatrment depatrment)
         {
-            _context.Depatrations.Update(depatrment);
+            _context.Depatrment.Update(depatrment);
             await _context.SaveChangesAsync();
         }
 
@@ -42,7 +42,7 @@ namespace SchoolipProject.Infrastructure.Repository
             var entity = await GetByIdAsync(id);
             if (entity != null)
             {
-                _context.Depatrations.Remove(entity);
+                _context.Depatrment.Remove(entity);
                 await _context.SaveChangesAsync();
             }
         }

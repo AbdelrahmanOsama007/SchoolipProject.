@@ -11,8 +11,8 @@ using SchoolipProject.Infrastructure.Data;
 namespace SchoolipProject.Infrastructure.Migrations
 {
     [DbContext(typeof(DbContext1))]
-    [Migration("20250804153614_m4")]
-    partial class m4
+    [Migration("20250808162123_fristone")]
+    partial class fristone
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -8,12 +8,17 @@ namespace SchoolipProject.Core
 {
     public static class ModuleCoreDependencies
     {
+        // Registering the MediatR services from the current assembly
         public static IServiceCollection RegisterCoreDependencies(this IServiceCollection services)
         {
             services.AddMediatR(cfg =>
                 cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
 
+            // Registering the automapper services from the current assembly
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
             return services;
         }
+      
     }
 }
