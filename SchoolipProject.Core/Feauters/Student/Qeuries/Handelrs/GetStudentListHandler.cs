@@ -10,33 +10,38 @@ using SchoolipProject.Service.Service;
 using SchoolipProject.Service.Iservice;
 using SchoolipProject.Core.Feauters.Student.Qeuries.Dto;
 using AutoMapper;
+using SchoolipProject.Core.Bases;
 
-namespace SchoolipProject.Core.Feauters.Student.Qeuries.Handelrs
+namespace SchoolipProject.Core.Feauters.Student.Qeuries.Handelrs;
+
+public class GetStudentListHandler : ResponseHandler, IRequestHandler<GetStudentListQuery, Response<List<StudentDto>>>
 {
-    public class GetStudentListHandler : IRequestHandler<GetStudentListQuery, List<StudentDto>>
+    readonly IStudentService _StuddentService;
+    readonly IMapper _imapper;
+    public GetStudentListHandler(IStudentService studentService, IMapper imapper) {
+        _StuddentService = studentService;
+        this._imapper = imapper;
+    }
+
+
+    async Task<Response<List<StudentDto>>> IRequestHandler<GetStudentListQuery, Response<List<StudentDto>>>.Handle(GetStudentListQuery request, CancellationToken cancellationToken)
     {
-        readonly IStudentService _StuddentService;
-        readonly IMapper _imapper;
-        public GetStudentListHandler(IStudentService studentService, IMapper imapper) {
-            _StuddentService = studentService;
-            this._imapper = imapper;
-        }
-
-       
-        async Task<List<StudentDto>> IRequestHandler<GetStudentListQuery, List<StudentDto>>.Handle(GetStudentListQuery request, CancellationToken cancellationToken)
+        try
         {
-            try
+            var students = await _StuddentService.GetAllAsync();
+            var StudentD = _imapper.Map<List<StudentDto>>(students);
+            return new Response<List<StudentDto>>
             {
-                var students = await _StuddentService.GetAllAsync();
-                var StudentD = _imapper.Map<List<StudentDto>>(students);
-                return StudentD;
-            }
-            catch (Exception ex)
-            {   
-                // Log the exception (not implemented here)
-                throw new Exception("An error occurred while retrieving the student list.", ex);
-            }
-
+                Data = StudentD,
+                Message = "Student list retrieved successfully.",
+                Succeeded = true
+            };
         }
+        catch (Exception ex)
+        {   
+            // Log the exception (not implemented here)
+            throw new Exception("An error occurred while retrieving the student list.", ex);
+        }
+
     }
 }

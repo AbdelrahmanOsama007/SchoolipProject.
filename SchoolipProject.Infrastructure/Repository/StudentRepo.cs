@@ -17,7 +17,9 @@ namespace SchoolipProject.Infrastructure.Repository
 
         public async Task<Student> GetByIdAsync(int id)
         {
-            return await _context.Students.FindAsync(id);
+            return await _context.Students
+                .Include(s => s.department)
+                .FirstOrDefaultAsync(s => s.id == id);
         }
 
         public async Task<IEnumerable<Student>> GetAllAsync()

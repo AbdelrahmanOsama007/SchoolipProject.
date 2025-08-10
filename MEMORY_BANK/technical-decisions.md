@@ -46,6 +46,29 @@
 - Testability
 - Consistent data access interface
 
+### Navigation Property Loading Strategy
+**Decision**: Use eager loading with .Include() for DTO mapping
+**Rationale**:
+- Ensures related entities are loaded when needed
+- Prevents null reference exceptions in AutoMapper
+- Better performance than lazy loading for known relationships
+
+**Implementation**:
+```csharp
+// Always include navigation properties needed for DTOs
+public async Task<IEnumerable<Student>> GetAllAsync()
+{
+    return await _context.Students
+        .Include(s => s.department)
+        .ToListAsync();
+}
+```
+
+**When to Use**:
+- Loading entities for API responses
+- DTO mapping requires related data
+- Known relationship usage patterns
+
 ## 🔧 Technology Stack
 
 ### Backend Framework
@@ -145,11 +168,28 @@ Core/Features/
 ## 📊 Performance Decisions
 
 ### Async/Await Pattern
-**Decision**: Use async operations
+**Decision**: Use async operations consistently
 **Rationale**:
 - Better resource utilization
 - Improved responsiveness
 - Scalability
+
+**Implementation Rules**:
+```csharp
+// ✅ Good - Proper async/await pattern
+async Task<List<StudentDto>> Handle(GetStudentListQuery request, CancellationToken cancellationToken)
+{
+    var students = await _studentService.GetAllAsync();
+    return _mapper.Map<List<StudentDto>>(students);
+}
+
+// ❌ Bad - Sync-over-async anti-pattern
+Task<List<StudentDto>> Handle(GetStudentListQuery request, CancellationToken cancellationToken)
+{
+    var students = _studentService.GetAllAsync().Result; // Can cause deadlocks
+    return Task.FromResult(_mapper.Map<List<StudentDto>>(students));
+}
+```
 
 ### Caching Strategy (Planned)
 **Decision**: Redis for caching
@@ -173,6 +213,38 @@ Core/Features/
 - Audit requirements
 - Complex business logic
 - Performance needs
+
+## 📝 Code Quality Decisions
+
+### AutoMapper Usage
+**Decision**: Use AutoMapper for entity-to-DTO mapping
+**Rationale**:
+- Reduces boilerplate code
+- Consistent mapping patterns
+- Easy to maintain
+
+**Best Practices**:
+- Always ensure source properties exist before mapping
+- Use eager loading for navigation properties
+- Test mappings with real data
+
+### Error Handling Strategy
+**Decision**: Use Response<T> wrapper for consistent API responses
+**Rationale**:
+- Standardized error format
+- Better client experience
+- Easier debugging
+
+**Implementation**:
+```csharp
+public class Response<T>
+{
+    public bool IsSuccess { get; set; }
+    public string Message { get; set; }
+    public T Data { get; set; }
+    public List<string> Errors { get; set; }
+}
+```
 
 ---
 
