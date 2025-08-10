@@ -8,23 +8,28 @@ using SchoolipProject.Data.Entites;
 using SchoolipProject.Core.Feauters.Student.Qeuries.Models;
 using SchoolipProject.Service.Service;
 using SchoolipProject.Service.Iservice;
+using SchoolipProject.Core.Feauters.Student.Qeuries.Dto;
+using AutoMapper;
 
 namespace SchoolipProject.Core.Feauters.Student.Qeuries.Handelrs
 {
-    public class GetStudentListHandler : IRequestHandler<GetStudentListQuery, List<SchoolipProject.Data.Entites.Student>>
+    public class GetStudentListHandler : IRequestHandler<GetStudentListQuery, List<StudentDto>>
     {
         readonly IStudentService _StuddentService;
-        public GetStudentListHandler(IStudentService studentService  ) {
+        readonly IMapper _imapper;
+        public GetStudentListHandler(IStudentService studentService, IMapper imapper) {
             _StuddentService = studentService;
+            this._imapper = imapper;
         }
 
        
-        Task<List<Data.Entites.Student>> IRequestHandler<GetStudentListQuery, List<Data.Entites.Student>>.Handle(GetStudentListQuery request, CancellationToken cancellationToken)
+        async Task<List<StudentDto>> IRequestHandler<GetStudentListQuery, List<StudentDto>>.Handle(GetStudentListQuery request, CancellationToken cancellationToken)
         {
             try
             {
-                var students = _StuddentService.GetAllAsync().Result;
-                return Task.FromResult(students.ToList());
+                var students = await _StuddentService.GetAllAsync();
+                var StudentD = _imapper.Map<List<StudentDto>>(students);
+                return StudentD;
             }
             catch (Exception ex)
             {   

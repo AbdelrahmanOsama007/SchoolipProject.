@@ -22,7 +22,9 @@ namespace SchoolipProject.Infrastructure.Repository
 
         public async Task<IEnumerable<Student>> GetAllAsync()
         {
-            return await _context.Students.ToListAsync();
+            return await _context.Students
+                .Include(s => s.department)
+                .ToListAsync();
         }
 
         public async Task AddAsync(Student student)

@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using SchoolipProject.Data.Entites;
 using MediatR;
+using SchoolipProject.Core.Feauters.Student.Qeuries.Dto;
 
 namespace SchoolipProject.Core.Feauters.Student.Qeuries.Models
 {
-    public class GetStudentListQuery : IRequest<List<SchoolipProject.Data.Entites.Student>>
+    public class GetStudentListQuery : IRequest<List<StudentDto>>
     {
-
 
     }
 }
