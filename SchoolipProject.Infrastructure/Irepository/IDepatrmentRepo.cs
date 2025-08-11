@@ -1,15 +1,10 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using SchoolipProject.Data.Entites;
+using SchoolipProject.Infrastructure.InfrastructureBases;
 
 namespace SchoolipProject.Infrastructure.Irepository
 {
-    public interface IDepatrmentRepo
+    public interface IDepatrmentRepo : IRepository<Depatrment>
     {
-        Task<Depatrment> GetByIdAsync(int id);
-        Task<IEnumerable<Depatrment>> GetAllAsync();
-        Task AddAsync(Depatrment depatrment);
-        Task UpdateAsync(Depatrment depatrment);
-        Task DeleteAsync(int id);
+        // Add any department-specific methods here if needed
     }
 }

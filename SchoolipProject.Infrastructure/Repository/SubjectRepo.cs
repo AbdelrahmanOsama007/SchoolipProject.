@@ -4,47 +4,25 @@ using Microsoft.EntityFrameworkCore;
 using SchoolipProject.Data.Entites;
 using SchoolipProject.Infrastructure.Data;
 using SchoolipProject.Infrastructure.Irepository;
+using SchoolipProject.Infrastructure.InfrastructureBases;
 
 namespace SchoolipProject.Infrastructure.Repository
 {
-    public class SubjectRepo : ISubjectRepo
+    public class SubjectRepo : Repository<Subject>, ISubjectRepo
     {
-        private readonly DbContext1 _context;
-        public SubjectRepo(DbContext1 context)
+        public SubjectRepo(DbContext1 context) : base(context)
         {
-            _context = context;
         }
 
-        public async Task<Subject> GetByIdAsync(int id)
+        // Override methods when custom logic is needed
+        public override async Task<Subject> GetByIdAsync(int id)
         {
             return await _context.subjects.FindAsync(id);
         }
 
-        public async Task<IEnumerable<Subject>> GetAllAsync()
+        public override async Task<IEnumerable<Subject>> GetAllAsync()
         {
             return await _context.subjects.ToListAsync();
-        }
-
-        public async Task AddAsync(Subject subject)
-        {
-            await _context.subjects.AddAsync(subject);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task UpdateAsync(Subject subject)
-        {
-            _context.subjects.Update(subject);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task DeleteAsync(int id)
-        {
-            var entity = await GetByIdAsync(id);
-            if (entity != null)
-            {
-                _context.subjects.Remove(entity);
-                await _context.SaveChangesAsync();
-            }
         }
     }
 }

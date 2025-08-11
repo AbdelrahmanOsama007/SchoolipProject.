@@ -12,6 +12,6 @@ namespace SchoolipProject.Core.Feauters.Student.Qeuries.Models
 {
     public class GetStudentListQuery : IRequest<Response<List<StudentDto>>>
     {
-
+        public int id { get; set; } 
     }
 }

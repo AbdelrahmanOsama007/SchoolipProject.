@@ -15,5 +15,10 @@ namespace SchoolipProject.Core.Mapping.Students.QueryMapping
         .ForMember(dest => dest.departmentName, opt => opt.MapFrom(src => src.department.Name));
 
         }
+        public void GetStudentQueryMapping()
+        {
+            CreateMap<SchoolipProject.Data.Entites.Student, SchoolipProject.Core.Feauters.Student.Qeuries.Dto.StudentDto>()
+                .ForMember(dest => dest.departmentName, opt => opt.MapFrom(src => src.department.Name));
+        }
     }
 }

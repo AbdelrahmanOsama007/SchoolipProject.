@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using SchoolipProject.Core;
+using SchoolipProject.Infrastructure.InfrastructureBases;
+using SchoolipProject.Infrastructure.Irepository;
+using SchoolipProject.Infrastructure.Repository;
 using SchoolipProject.Service.Iservice;
 using SchoolipProject.Service.Service;
 
@@ -22,16 +25,24 @@ namespace SchoolipProject.api
                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             #region dependency injection
-            builder.Services.AddScoped<SchoolipProject.Infrastructure.Irepository.IDepatrmentRepo, SchoolipProject.Infrastructure.Repository.DepatrmentRepo>();
-            builder.Services.AddScoped<SchoolipProject.Infrastructure.Irepository.ISubjectRepo, SchoolipProject.Infrastructure.Repository.SubjectRepo>();
-            builder.Services.AddScoped<SchoolipProject.Infrastructure.Irepository.IDepartmentSubjectRepo, SchoolipProject.Infrastructure.Repository.DepartmentSubjectRepo>();
-            builder.Services.AddScoped<SchoolipProject.Infrastructure.Irepository.IStudentSubjectRepo, SchoolipProject.Infrastructure.Repository.StudentSubjectRepo>();
-            builder.Services.AddScoped<SchoolipProject.Infrastructure.Irepository.IStudentRepo, SchoolipProject.Infrastructure.Repository.StudentRepo>();
+
+            // Register repositories
+            builder.Services.AddTransient<IStudentRepo, StudentRepo>();
+            builder.Services.AddTransient<IDepatrmentRepo, DepatrmentRepo>();
+            builder.Services.AddTransient<ISubjectRepo, SubjectRepo>();
+            builder.Services.AddTransient<IStudentSubjectRepo, StudentSubjectRepo>();
+            builder.Services.AddTransient<IDepartmentSubjectRepo, DepartmentSubjectRepo>();
+            
+            // Register generic repository
+            builder.Services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            
+            // Register services
             builder.Services.AddTransient<IStudentService, StudentService>();
             builder.Services.AddTransient<IDepatrmentService, DepatrmentService>();
             builder.Services.AddTransient<ISubjectService, SubjectService>();
             builder.Services.AddTransient<IDepartmentSubjectService, DepartmentSubjectService>();
             builder.Services.AddTransient<IStudentSubjectService, StudentSubjectService>();
+            
             builder.Services.RegisterCoreDependencies();
             
             #endregion 

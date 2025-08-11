@@ -14,7 +14,9 @@ using SchoolipProject.Core.Bases;
 
 namespace SchoolipProject.Core.Feauters.Student.Qeuries.Handelrs;
 
-public class GetStudentListHandler : ResponseHandler, IRequestHandler<GetStudentListQuery, Response<List<StudentDto>>>
+public class GetStudentListHandler : ResponseHandler, IRequestHandler<GetStudentListQuery, Response<List<StudentDto>>>,
+                                                                 IRequestHandler<GetStudentQuery, Response<StudentDto>>
+    
 {
     readonly IStudentService _StuddentService;
     readonly IMapper _imapper;
@@ -44,4 +46,29 @@ public class GetStudentListHandler : ResponseHandler, IRequestHandler<GetStudent
         }
 
     }
+     async Task<Response<StudentDto>> IRequestHandler<GetStudentQuery, Response<StudentDto>>.Handle(GetStudentQuery request, CancellationToken cancellationToken)
+    {
+        try
+        {
+            var student = await _StuddentService.GetByIdAsync(request.id);
+            if (student == null)
+            {
+                return NotFound<StudentDto>("Student not found.");
+            }
+            var studentDto = _imapper.Map<StudentDto>(student);
+            return new Response<StudentDto>
+            {
+                Data = studentDto,
+                Message = "Student  retrieved successfully.",
+                Succeeded = true
+            };
+        }
+        catch (Exception ex)
+        {
+            // Log the exception (not implemented here)
+            return BadRequest<StudentDto>("An error occurred while retrieving the student.");
+        }
+    }
+
+
 }

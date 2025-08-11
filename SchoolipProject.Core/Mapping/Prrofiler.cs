@@ -10,6 +10,7 @@ namespace SchoolipProject.Core.Mapping.Students.QueryMapping
     {
         public Prrofiler() {
             GetStudentListMapping();
+            GetStudentQueryMapping();
         }
     }
 }

@@ -4,51 +4,31 @@ using Microsoft.EntityFrameworkCore;
 using SchoolipProject.Data.Entites;
 using SchoolipProject.Infrastructure.Data;
 using SchoolipProject.Infrastructure.Irepository;
+using SchoolipProject.Infrastructure.InfrastructureBases;
 
 namespace SchoolipProject.Infrastructure.Repository
 {
-    public class StudentRepo : IStudentRepo
+    public class StudentRepo : Repository<Student>, IStudentRepo
     {
-        private readonly DbContext1 _context;
-        public StudentRepo(DbContext1 context)
+        public StudentRepo(DbContext1 context) : base(context)
         {
-            _context = context;
         }
 
-        public async Task<Student> GetByIdAsync(int id)
+
+        // Override methods when custom logic is needed (e.g., Include statements)
+        public override async Task<Student> GetByIdAsync(int id)
         {
             return await _context.Students
                 .Include(s => s.department)
                 .FirstOrDefaultAsync(s => s.id == id);
         }
 
-        public async Task<IEnumerable<Student>> GetAllAsync()
+        public override async Task<IEnumerable<Student>> GetAllAsync()
         {
             return await _context.Students
                 .Include(s => s.department)
                 .ToListAsync();
         }
 
-        public async Task AddAsync(Student student)
-        {
-            await _context.Students.AddAsync(student);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task UpdateAsync(Student student)
-        {
-            _context.Students.Update(student);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task DeleteAsync(int id)
-        {
-            var entity = await GetByIdAsync(id);
-            if (entity != null)
-            {
-                _context.Students.Remove(entity);
-                await _context.SaveChangesAsync();
-            }
-        }
     }
 }
