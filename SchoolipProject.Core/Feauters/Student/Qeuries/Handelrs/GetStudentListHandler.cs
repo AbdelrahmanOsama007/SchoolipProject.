@@ -40,7 +40,7 @@ public class GetStudentListHandler : ResponseHandler, IRequestHandler<GetStudent
         catch (Exception ex)
         {   
             // Log the exception (not implemented here)
-            throw new Exception("An error occurred whil e retrieving the student list.", ex);
+            throw new Exception("An error occurred while retrieving the student list.", ex);
         }
 
     }
