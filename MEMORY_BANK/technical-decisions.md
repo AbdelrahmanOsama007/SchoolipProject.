@@ -135,12 +135,43 @@ Core/Features/
 
 ## 🧪 Testing Strategy
 
-### Unit Testing (Planned)
-**Decision**: xUnit for unit tests
+### Unit Testing Implementation
+**Decision**: xUnit with Moq and FluentAssertions
 **Rationale**:
-- Popular in .NET ecosystem
-- Good tooling support
-- Active community
+- xUnit: Popular in .NET ecosystem, good tooling support
+- Moq: Industry standard mocking framework
+- FluentAssertions: More readable and maintainable assertions
+
+**Implementation Details**:
+```
+SchoolipProject.Tests/
+├── Features/
+│   └── Student/
+│       ├── Commands/
+│       │   ├── AddStudentHandlerTests.cs
+│       │   ├── EditStudentHandlerTests.cs
+│       │   └── DeleteStudentHandlerTests.cs
+│       └── Queries/
+│           ├── GetStudentListHandlerTests.cs
+│           └── GetStudentHandlerTests.cs
+├── Mocks/
+│   ├── MockStudentService.cs
+│   └── MockMapper.cs
+└── TestBase.cs
+```
+
+**Testing Strategy**:
+- Use TestBase class for common setup
+- Mock external dependencies (IStudentService, IMapper)
+- Test both success and failure scenarios
+- Follow Arrange-Act-Assert pattern
+- Use descriptive test names (MethodName_Scenario_ExpectedResult)
+
+**Test Coverage Goals**:
+- Command Handlers: 100%
+- Query Handlers: 100%
+- Validation Rules: 100%
+- Error Handling: 100%
 
 ### Integration Testing (Planned)
 **Decision**: Test API endpoints
