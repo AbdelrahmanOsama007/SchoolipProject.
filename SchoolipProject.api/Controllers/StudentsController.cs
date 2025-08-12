@@ -33,7 +33,7 @@ namespace SchoolipProject.api.Controllers
         {
             try
             {
-                var student = await _IMediator.Send(new SchoolipProject.Core.Feauters.Student.Qeuries.Models.GetStudentQuery { id = id });
+                var student = await _IMediator.Send(new SchoolipProject.Core.Feauters.Student.Qeuries.Models.GetStudentQuery(id));
                 if (student == null)
                 {
                     return NotFound("Student not found.");
