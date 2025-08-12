@@ -45,10 +45,12 @@ namespace SchoolipProject.Core.Feauters.Student.Commands.Handlers
                     return BadRequest<bool>("A student with the same name already exists in this department.");
                 }
 
-                // Update student properties
-                existingStudent.name = request.Name;
-                existingStudent.age = request.Age;
-                existingStudent.department_id = request.DepartmentId;
+                // Update student properties directly on existing entity
+                // Map the request values onto the existing entity
+                _mapper.Map(request, existingStudent);
+
+                // Save changes
+                await _studentService.UpdateAsync(existingStudent);
 
                 // Save changes
                 await _studentService.UpdateAsync(existingStudent);

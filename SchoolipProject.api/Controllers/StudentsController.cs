@@ -83,5 +83,24 @@ namespace SchoolipProject.api.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while updating the student.");
             }
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                var result = await _IMediator.Send(new SchoolipProject.Core.Feauters.Student.Qeuries.Models.DeleteStudentQuery(id));
+                if (result.Succeeded)
+                {
+                    return Ok(result);
+                }
+                return BadRequest(result.Message);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (not implemented here)
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while deleting the student.");
+            }
+        }
     }
 }
