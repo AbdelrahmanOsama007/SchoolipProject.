@@ -16,11 +16,12 @@ namespace SchoolipProject.Core.Feauters.Student.Qeuries.Handelrs;
 
 public class GetStudentListHandler : ResponseHandler, IRequestHandler<GetStudentListQuery, Response<List<StudentDto>>>,
                                                                  IRequestHandler<GetStudentQuery, Response<StudentDto>>
-    
+
 {
     readonly IStudentService _StuddentService;
     readonly IMapper _imapper;
-    public GetStudentListHandler(IStudentService studentService, IMapper imapper) {
+    public GetStudentListHandler(IStudentService studentService, IMapper imapper)
+    {
         _StuddentService = studentService;
         this._imapper = imapper;
     }
@@ -40,13 +41,13 @@ public class GetStudentListHandler : ResponseHandler, IRequestHandler<GetStudent
             };
         }
         catch (Exception ex)
-        {   
+        {
             // Log the exception (not implemented here)
             throw new Exception("An error occurred while retrieving the student list.", ex);
         }
 
     }
-     async Task<Response<StudentDto>> IRequestHandler<GetStudentQuery, Response<StudentDto>>.Handle(GetStudentQuery request, CancellationToken cancellationToken)
+    async Task<Response<StudentDto>> IRequestHandler<GetStudentQuery, Response<StudentDto>>.Handle(GetStudentQuery request, CancellationToken cancellationToken)
     {
         try
         {

@@ -22,7 +22,16 @@ namespace SchoolipProject.Service.Service
         // Basic CRUD operations
         public Task<Student> GetByIdAsync(int id) => _repo.GetTableNoTracking().Include(id => id.department).FirstOrDefaultAsync(s => s.id == id);
         public Task<IEnumerable<Student>> GetAllAsync() => _repo.GetAllAsync();
-        public Task<Student> AddAsync(Student student) => _repo.AddAsync(student);
+        public Task<Student> AddAsync(Student student)
+        {
+            var studentresult = _repo.GetTableNoTracking().Where(x => x.name.Equals(student.name) && x.department_id == student.department_id).FirstOrDefault();
+            if (studentresult != null) {
+                return Task.FromResult<Student>(null);
+            }
+            {
+              return _repo.AddAsync(student);
+            }
+            }
         public Task AddRangeAsync(ICollection<Student> students) => _repo.AddRangeAsync(students);
         public Task UpdateAsync(Student student) => _repo.UpdateAsync(student);
         public Task UpdateRangeAsync(ICollection<Student> students) => _repo.UpdateRangeAsync(students);

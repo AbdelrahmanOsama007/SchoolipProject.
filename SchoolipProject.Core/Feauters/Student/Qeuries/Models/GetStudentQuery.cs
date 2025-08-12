@@ -7,5 +7,9 @@ namespace SchoolipProject.Core.Feauters.Student.Qeuries.Models
     public class GetStudentQuery : IRequest<Response<StudentDto>>
     {
         public int id { get; set; }
+        public GetStudentQuery(int id)
+        {
+            this.id = id;
+        }
     }
 }
